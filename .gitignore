@@ -1,9 +1,6 @@
 # VS Code
 .vscode
 
-# Infracost
-.infracost
-
 # Environment variables
 *.env
 
