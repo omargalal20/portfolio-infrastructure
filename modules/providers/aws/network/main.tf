@@ -1,9 +1,9 @@
 locals {
   subnet_ips = {
-    public_a = "172.31.64.0/24"
-    public_b = "172.31.65.0/24"
+    public_a = "10.0.1.0/24" # Changed from 172.31.64.0/24
+    public_b = "10.0.2.0/24" # Changed from 172.31.65.0/24
   }
-  cidr = "172.31.0.0/16"
+  cidr = "10.0.0.0/16" # Changed from 172.31.0.0/16
 }
 
 module "vpc" {
@@ -17,6 +17,10 @@ module "vpc" {
   enable_nat_gateway   = false
   single_nat_gateway   = false
   enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  # Ensure proper internet gateway setup
+  create_igw = true
 
   tags = {
     Name = "${var.namespace}-vpc"

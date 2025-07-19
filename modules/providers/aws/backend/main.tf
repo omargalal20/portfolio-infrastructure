@@ -41,7 +41,7 @@ resource "aws_instance" "backend_instance" {
   iam_instance_profile        = aws_iam_instance_profile.backend_instance_profile.name
 
   root_block_device {
-    volume_size = 12
+    volume_size = 16
   }
 
   connection {
@@ -54,6 +54,11 @@ resource "aws_instance" "backend_instance" {
   provisioner "file" {
     source      = "ec2-setup.sh"
     destination = "/home/ec2-user/ec2-setup.sh"
+  }
+
+  provisioner "file" {
+    source      = "portfolio-backend/docker-compose.yml"
+    destination = "/home/ec2-user/docker-compose.yml"
   }
 
   provisioner "remote-exec" {
