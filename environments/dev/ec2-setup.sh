@@ -27,7 +27,7 @@ chmod +x /tmp/docker-machine
 sudo cp /tmp/docker-machine /usr/local/bin
 
 # Create a 4GB swap file
-sudo fallocate -l 4G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=4096
+sudo fallocate -l 8G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=8192
 
 # Secure the swap file
 sudo chmod 600 /swapfile
@@ -49,4 +49,4 @@ sudo sysctl -p
 curl -fsSl https://pkg.cloudflare.com/cloudflared-ascii.repo | sudo tee /etc/yum.repos.d/cloudflared.repo
 
 # install cloudflared
-sudo yum install cloudflared
+sudo yum install cloudflared -y
