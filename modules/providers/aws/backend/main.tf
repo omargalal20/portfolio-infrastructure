@@ -39,37 +39,22 @@ resource "aws_instance" "backend_instance" {
   vpc_security_group_ids      = [var.security_group_id]
   associate_public_ip_address = true
   iam_instance_profile        = aws_iam_instance_profile.backend_instance_profile.name
+  user_data_base64            = var.user_data_script_path != "" ? base64encode(file(var.user_data_script_path)) : null
+
+  # Spot instance configuration
+  instance_market_options {
+    market_type = "spot"
+    spot_options {
+      max_price                      = var.spot_price
+      spot_instance_type             = "persistent"
+      instance_interruption_behavior = "stop"
+    }
+  }
 
   root_block_device {
     volume_size = 16
-  }
-
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    private_key = file(var.key_pair_file_path)
-    host        = self.public_ip
-  }
-
-  provisioner "file" {
-    source      = "ec2-setup.sh"
-    destination = "/home/ec2-user/ec2-setup.sh"
-  }
-
-  provisioner "file" {
-    source      = "portfolio-backend/docker-compose.yml"
-    destination = "/home/ec2-user/docker-compose.yml"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo yum update -y",
-      "sudo yum install dos2unix -y",
-      "dos2unix /home/ec2-user/ec2-setup.sh",
-      "sudo chmod +x /home/ec2-user/ec2-setup.sh",
-      "echo Starting ec2-setup",
-      "sh /home/ec2-user/ec2-setup.sh"
-    ]
+    volume_type = "gp3"
+    encrypted   = true
   }
 
   tags = {

@@ -6,7 +6,6 @@
 
 resource "aws_ecr_repository" "ecr_repo" {
   name                 = var.name
-  image_tag_mutability = "IMMUTABLE"
 
   tags = {
     Name = "${var.namespace}-ecr-repo"

@@ -1,6 +1,6 @@
 variable "region" {
   description = "AWS Region"
-  default     = "us-west-2"
+  default     = "us-east-2"
   type        = string
 }
 
@@ -26,4 +26,10 @@ variable "env_name" {
 variable "BACKEND_KEY_PAIR_PATH" {
   description = "The local key pair path needed to store the Backend Instance SSH key"
   type        = string
+}
+
+variable "SPOT_PRICE" {
+  description = "The maximum spot price per hour for the backend instance"
+  type        = string
+  sensitive   = true
 }

@@ -42,9 +42,23 @@ resource "aws_iam_policy" "ecr_iam_policy" {
         "ecr:InitiateLayerUpload",
         "ecr:UploadLayerPart",
         "ecr:CompleteLayerUpload",
-        "ecr:PutImage"
+        "ecr:PutImage",
+        "ecr:DescribeRepositories",
+        "ecr:ListImages",
+        "ecr:DescribeImages"
       ],
       "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+      ],
+      "Resource": [
+        "arn:aws:secretsmanager:us-east-2:*:secret:portfolio-dev-backend-secrets*",
+        "arn:aws:secretsmanager:us-east-2:*:secret:cloudflare-dev-tunnel*"
+      ]
     }
   ]
 }

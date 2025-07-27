@@ -4,7 +4,7 @@ terraform {
   backend "s3" {
     bucket  = "portfolio-infrastructure-dev-terraform-state-bucket"
     key     = "terraform.tfstate"
-    region  = "us-west-2"
+    region  = "us-east-2"
     encrypt = true
     profile = "portfolio"
   }

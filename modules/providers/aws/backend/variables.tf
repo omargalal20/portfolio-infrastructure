@@ -51,3 +51,14 @@ variable "security_group_id" {
   description = "The security group id of the ec2 instance"
   type        = string
 }
+
+variable "spot_price" {
+  description = "The maximum spot price per hour for the instance"
+  type        = string
+}
+
+variable "user_data_script_path" {
+  description = "Path to the user data script"
+  type        = string
+  default     = ""
+}
