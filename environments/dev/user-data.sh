@@ -45,7 +45,7 @@ sudo cp /tmp/docker-machine /usr/local/bin
 
 # Create swap file for better performance
 log "Setting up swap file..."
-sudo fallocate -l 8G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=8192
+sudo fallocate -l 4G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=4096
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
